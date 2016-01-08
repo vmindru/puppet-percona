@@ -10,8 +10,13 @@
   "dependencies": [],
   "operatingsystem_support": [
         {
-        "operatingsystem":"RedHat",
+        "operatingsystem":"RHEL",
         "operatingsystemrelease":[ "6.0", "7.0" ]
-        }],
+        },
+        {
+        "operatingsystem":"CENTOS",
+        "operatingsystemrelease":[ "6.0", "7.0" ]
+        }
+  ],
   "data_provider": "hiera"
 }

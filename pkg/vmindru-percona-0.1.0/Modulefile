@@ -1,8 +1,0 @@
-name    'vmindru-percona'
-version '0.1.0'
-source 'https://github.com/vmindru/puppet-percona'
-author 'vmindru'
-license 'Apache License, Version 2.0'
-summary 'Puppet module for percona'
-description 'Puppet module for percona XtraDB configuration on CENTOS7/RHEL7'
-project_page 'https://github.com/vmindru/puppet-percona'
