@@ -1,0 +1,57 @@
+[mysqld]
+
+innodb_buffer_pool_size = <%= innodb_buffer_pool_size %>
+innodb_log_file_size = <%= innodb_log_file_size %>
+innodb_file_per_table=<%= innodb_file_per_table %>
+innodb_autoinc_lock_mode=<%= innodb_autoinc_lock_mode %>
+innodb_locks_unsafe_for_binlog=<%= innodb_locks_unsafe_for_binlog %>
+
+datadir=<%= datadir %>
+<% if osfamily == 'RedHat' %>socket=/var/lib/mysql/mysql.sock<% else %>socket=/var/run/mysqld/mysqld.sock<% end %>
+<% if osfamily != 'RedHat' %>pid-file=/var/lib/mysql/<%= hostname %>.pid<% end %>
+
+user=mysql
+
+# Path to Galera library
+wsrep_provider=<%= wsrep_provider %>
+
+# Cluster connection URL contains the IPs of node#1, node#2 and node#3
+wsrep_cluster_address=gcomm://<%= mysql_cluster_servers %>
+
+# In order for Galera to work correctly binlog format should be binlog_format=<%= binlog_format %>
+binlog_format=<%= binlog_format %>
+
+# MyISAM storage engine has only experimental support
+default_storage_engine=<%= default_storage_engine %>
+
+# This changes how InnoDB autoincrement locks are managed and is a requirement for Galera
+innodb_autoinc_lock_mode=<%= innodb_autoinc_lock_mode %>
+
+# Node address
+wsrep_node_address = <%= @ipaddress %> 
+
+# SST method
+wsrep_sst_method=<%= wsrep_sst_method %>
+
+# Cluster name
+wsrep_cluster_name=<%= wsrep_cluster_name %>
+
+# Authentication for SST method
+wsrep_sst_auth="<%= wsrep_sst_user %>:<%= wsrep_sst_password %>"
+
+#wsrep_sst_donor = <%= wsrep_sst_donor %>
+
+
+<% if @old_passwords %>
+# Default to using old password format for compatibility with mysql 3.x
+# clients (those using the mysqlclient10 compatibility package).
+old_passwords=1
+<% end %>
+
+# Disabling symbolic-links is recommended to prevent assorted security risks;
+# to do so, uncomment this line:
+# symbolic-links=0
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+<% if osfamily == 'RedHat' %>pid-file=/var/run/mysqld/mysqld.pid<% end %>

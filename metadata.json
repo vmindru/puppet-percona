@@ -1,16 +1,17 @@
 {
   "source": "https://github.com/vmindru/puppet-percona",
   "author": "vmindru",
-  "types": [
-
-  ],
   "description": "Puppet module for percona XtraDB configuration - CENTOS7",
   "project_page": "https://github.com/vmindru/puppet-percona",
   "name": "vmindru-percona",
   "summary": "Puppet module for percona",
   "version": "0.1.0",
   "license": "Apache License, Version 2.0",
-  "dependencies": [
-
-  ],
+  "dependencies": [],
+  "operatingsystem_support": [
+        {
+        "operatingsystem":"RedHat",
+        "operatingsystemrelease":[ "6.0", "7.0" ]
+        }],
+  "data_provider": "hiera"
 }
