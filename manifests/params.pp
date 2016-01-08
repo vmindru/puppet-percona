@@ -44,22 +44,6 @@ class percona::params {
 
   case $::operatingsystem {
   
-    /(?i:debian|ubuntu)/: {
-      $config_dir  = '/etc/mysql'
-      $default_config_file = '/etc/mysql/my.cnf'
-      $template = $percona::config_template ? {
-        undef   => 'percona/my.cnf.Debian.erb',
-        default => $percona::config_template,
-      }
-      $config_include_dir_default = "${config_dir}/conf.d"
-      $percona_conf = '/etc/mysql/my.cnf'
-      $percona_provider = '/usr/lib/libgalera_smm.so'
-      $percona_host_table = 'mysql/user.frm'
-      $percona_service = 'mysql'
-      $percona_keyprefix = '1C4CBDCD'
-      $percona_keynum = 'CD2EFD2A'
-    }
-    
     /(?i:redhat|centos|scientific)/: {
       $default_config_file = '/etc/my.cnf'
       $template    = $percona::config_template ? {

@@ -5,11 +5,6 @@ class percona::preinstall {
 
   if $::percona::manage_repo {
     case $::operatingsystem {
-      /(?i:debian|ubuntu)/: {
-        class {'percona::repo::apt':
-          before => Class['percona::install'],
-        }
-      }
       /(?i:redhat|centos|scientific)/: {
         class {'percona::repo::yum':
           before => Class['percona::install'],
