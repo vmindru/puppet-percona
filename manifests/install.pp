@@ -17,8 +17,8 @@ class percona::install {
   }
 
 #do the insatll   
-  package {"$pkg":
-	ensure => "installed" ,
+  package {$pkg:
+  ensure        => 'installed' ,
         require => [
       Class['percona::preinstall']
     ],
