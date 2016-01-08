@@ -90,7 +90,7 @@ Module might work with adjustments on
 ###Donwload the module from git
 You have to clone the git repo, and then copy the percona directory in the puppet module directory used by formean puppetmaster host:
 
-    $ git clone https://github.com/opencityplatform/ocp-cnaf-puppet.git
+    $ git clone https://github.com/vmindru/puppet-percona.git
     $ cp -r percona /etc/puppet/environments/production/modules/
 
 ###Import the module in foreman
@@ -112,6 +112,8 @@ Check the Add tips to xinetd line and click Import.
 
 You can change all the parameter you want in all the class. But the mandatory one is:
 * In percona module set the mysql_cluster_servers. Theese are the node in mysql percona cluster. For example 192.168.10.20,192.168.10.21,192.168.10.22
+* In percona module set wsrep_sst_method to xtrabackup-v2 , for some reason xtrabackup will be failing when clients will be joining master. 
+* we also recomend to change default passwords 
 
 
 ###Assign to each host in the cluster the modules
