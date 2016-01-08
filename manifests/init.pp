@@ -72,7 +72,7 @@
 #
 
 class percona(
-  $percona_version = '5.5',
+  $percona_version = '5.6',
   $root_password = undef,
   $old_passwords = false,
   $datadir = '/var/lib/mysql',
