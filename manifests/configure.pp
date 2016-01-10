@@ -34,7 +34,7 @@ class percona::configure inherits percona {
         notify  => Exec['complete-reload']
     }
     exec {'complete-reload':
-      command     => 'firewall-cmd --get-services' ,
+      command     => 'firewall-cmd --complete-reload' ,
       path        => ['/usr/bin'] ,
       refreshonly => true
     }
