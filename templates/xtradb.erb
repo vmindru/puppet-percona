@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+ <short>Xtradb</short>
+ <description>MySQL percona XtraDB CLUSTER</description>
+  <port protocol="tcp" port="5555"/>
+  <port protocol="tcp" port="4567"/>
+  <port protocol="tcp" port="4568"/>
+  <port protocol="tcp" port="4444"/>
+  <port protocol="tcp" port="4010"/>
+  <port protocol="tcp" port="3306"/>
+  <port protocol="tcp" port="7777"/>
+  <% if @extra_firewall_ports %>
+  <% @extra_firewall_ports.each do |val| -%>
+  <port protocol="tcp" port="<%= val %>"/> 
+  <% end -%>
+  <% end -%>
+</service>
+

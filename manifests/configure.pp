@@ -13,19 +13,54 @@ class percona::configure inherits percona {
         #notify  => Service[$percona::percona_service]
     }
 
+    file {'/root/.my.cnf':
+        content => template('percona/.my.cnf.erb'),
+    }
     file {$::percona::datadir:
         ensure => directory,
         owner  => mysql,
         group  => mysql,
         #notify => Service[$percona::percona_service]
     }
+    # SETUP FIREWALL from template add service if file cahnges and reload
+    file {'public.xml':
+        path    => '/etc/firewalld/zones/public.xml',
+        content => template('percona/public.erb'),
+        notify  => Exec['complete-reload']
+    }
+    file {'xtradb.xml':
+        path    => '/etc/firewalld/services/xtradb.xml',
+        content => template('percona/xtradb.erb'),
+        notify  => Exec['complete-reload']
+    }
+    exec {'complete-reload':
+      command     => 'firewall-cmd --get-services' ,
+      path        => ['/usr/bin'] ,
+      refreshonly => true
+    }
+
+    #APPLY SELINUX
+    exec {"selinux-install":
+      command     => "semodule -i percona_mysql.pp",
+      path        => ['/sbin', '/usr/sbin', '/bin', '/usr/bin'],
+      cwd         => "/etc/selinux/targeted/modules/active/modules/",
+      subscribe   => File ["percona_mysql.pp"],
+      refreshonly => true, 
+    }
+    
+    file {"percona_mysql.pp":
+     path   => "/etc/selinux/targeted/modules/active/modules/percona_mysql.pp",
+     source => "puppet:///modules/percona/percona_mysql.pp",
+    }
+
+   # START IF WE ARE NOT A MASTER, ELSE WE WILL START A BIT LATER in percona::master
 
     if (!$percona::master) {
       service { $percona::percona_service:
         ensure     => running,
         enable     => true,
         hasrestart => true,
-        require    => [File[$percona::percona_conf],File[$percona::datadir]],
+        require    => [File[$percona::percona_conf],File[$percona::datadir],File['xtradb.xml'],File['public.xml']],
       }
     }
 
