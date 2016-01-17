@@ -83,7 +83,7 @@ Module might work with adjustments on
 ##Usage with foreman only 
 
 **Example of YAML** 
-
+```
   percona:
     master: true
     mysql_cluster_servers: 10.10.10.1,10.10.10.2,10.10.10.3
@@ -93,7 +93,7 @@ Module might work with adjustments on
     wsrep_cluster_name: $SOMECLUSTERNAME
     wsrep_sst_method: xtrabackup-v2
     wsrep_sst_password: $SOMEPASSWORD
-
+```
 
 ###Donwload the module from git
 You have to clone the git repo, and then copy the percona directory in the puppet module directory used by formean puppetmaster host:
