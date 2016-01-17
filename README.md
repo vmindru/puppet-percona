@@ -21,6 +21,7 @@ Puppet module for managing Percona XtraDB.
 
 This module is intended to be used to manage the Percona XtraDB system configuration.
 Percona XtraDB is an enhanced version of the InnoDB storage engine for MySQL® and MariaDB®.
+This module will work only on Centos7/RHEL7 systems.
 
 ##Module Description
 
@@ -55,12 +56,6 @@ The following parameters are supported:
 * **master**: set this to true to the first host in the cluster you are installing [default: false]
 
 
-##Starting Module
-We developed this module starting the:
-
-* [De Salvo Puppet Percona Module](https://forge.puppetlabs.com/vmindru/percona)
-* [Puppetlabs Mysql](https://forge.puppetlabs.com/puppetlabs/mysql)
-
 ##Module was forked from 
 
 * https://github.com/desalvo/puppet-percona 
@@ -79,13 +74,26 @@ To use this module with all the cluster check you ha to install
 ##Tested on
 
 * CentOs 7
-* RHEL & 
+* RHEL 7
 
 Module might work with adjustments on
 
 * Centos 6 / RHEL 6 
 
 ##Usage with foreman only 
+
+**Example of YAML** 
+
+  percona:
+    master: true
+    mysql_cluster_servers: 10.10.10.1,10.10.10.2,10.10.10.3
+    percona_version: '56'
+    pkg_version: '5.6'
+    root_password: $SOMEPASSWORD
+    wsrep_cluster_name: $SOMECLUSTERNAME
+    wsrep_sst_method: xtrabackup-v2
+    wsrep_sst_password: $SOMEPASSWORD
+
 
 ###Donwload the module from git
 You have to clone the git repo, and then copy the percona directory in the puppet module directory used by formean puppetmaster host:
